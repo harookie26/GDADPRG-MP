@@ -36,7 +36,7 @@ void EnemyAirplane::initialize()
     sprite->setTexture(*TextureManager::getInstance()->getTexture("avenger"));
     sf::Vector2u textureSize = sprite->getTexture()->getSize();
     sprite->setOrigin(textureSize.x / 2, textureSize.y / 2);
-
+    this->sprite->setScale(2.0f, 2.0f); // Scale the sprite by 2x
     this->setPosition(Game::WINDOW_WIDTH / 2, -30);
     this->getTransformable()->move(rand() % SPAWN_RANGE - rand() % SPAWN_RANGE, 0);
     this->getTransformable()->setRotation(180);

@@ -12,6 +12,8 @@ public:
 	void loadAll();
 	sf::Texture* getTexture(std::string);
 
+	void scaleTexture(std::string key, float scaleX, float scaleY);
+
 private:
 	TextureManager() {};
 	TextureManager(TextureManager const&) {};

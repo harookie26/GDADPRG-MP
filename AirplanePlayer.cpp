@@ -26,6 +26,7 @@ void AirplanePlayer::initialize()
     this->sprite->setTexture(*TextureManager::getInstance()->getTexture("eagle"));
     sf::Vector2u textureSize = sprite->getTexture()->getSize();
     this->sprite->setOrigin(textureSize.x / 2, textureSize.y / 2);
+    this->sprite->setScale(2.0f, 2.0f); // Scale the sprite by 2x
     this->transformable.setPosition(Game::WINDOW_WIDTH / 2, Game::WINDOW_HEIGHT / 2);
 
 	PlayerInputController* inputController = new PlayerInputController("MyPlayerInput");

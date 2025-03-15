@@ -25,10 +25,10 @@ TextureManager* TextureManager::getInstance()
  */
 void TextureManager::loadAll()
 {
-	loadTexture("eagle", "Media/Texture/Eagle.png");
-	loadTexture("raptor", "Media/Texture/Raptor.png");
-	loadTexture("desert_bg", "Media/Texture/Desert.png");
-	loadTexture("avenger", "Media/Avenger.png");
+	loadTexture("eagle", "Media/Textures/main.png");
+	loadTexture("raptor", "Media/Textures/scout.png");
+	loadTexture("desert_bg", "Media/Textures/bg1.png");
+	loadTexture("avenger", "Media/Textures/scout.png");
 	loadTexture("title_bg", "Media/Texture/TitleScreenBG.png");
 	loadTexture("bg_box", "Media/Texture/f.png");
 	loadTexture("btn_normal", "Media/Texture/b_4.png");
@@ -39,6 +39,8 @@ void TextureManager::loadAll()
 	sf::Texture* bgText;
 	bgText = getTexture("desert_bg");
 	bgText->setRepeated(true);
+
+	scaleTexture("avenger", 10.0f, 10.0f); // Example: scale by 2x
 }
 
 /**
@@ -70,5 +72,17 @@ sf::Texture* TextureManager::getTexture(std::string key)
 	{
 		std::cout << "Texture not found" << std::endl;
 		return nullptr;
+	}
+}
+
+void TextureManager::scaleTexture(std::string key, float scaleX, float scaleY)
+{
+	sf::Texture* texture = getTexture(key);
+	if (texture != nullptr) {
+		sf::Vector2u size = texture->getSize();
+		texture->setSmooth(true);
+		texture->setRepeated(false);
+		sf::Sprite sprite(*texture);
+		sprite.setScale(scaleX, scaleY);
 	}
 }

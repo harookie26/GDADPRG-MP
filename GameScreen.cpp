@@ -33,13 +33,13 @@ void GameScreen::initialize()
     AirplanePlayer* planeObject = new AirplanePlayer("PlaneObject");
     GameObjectManager::getInstance()->addObject(planeObject);
 
-    AirplaneSupport* support1 = new AirplaneSupport("AirSupport_1", true);
+    /*AirplaneSupport* support1 = new AirplaneSupport("AirSupport_1", true);
     planeObject->attachChild(support1);
     support1->setPosition(50, 100);
 
     AirplaneSupport* support2 = new AirplaneSupport("AirSupport_2", false);
     planeObject->attachChild(support2);
-    support2->setPosition(-50, 100);
+    support2->setPosition(-50, 100);*/
 
     srand(time(nullptr));
     EmptyGameObject* enemiesManager = new EmptyGameObject("EnemiesManager");
