@@ -43,4 +43,9 @@ void EnemySwarmHandler::perform()
         this->ticks = 0.0f;
         enemyPool->requestPoolable();
     }
+	if (SPAWN_INTERVAL > 1) {
+		SPAWN_INTERVAL -= 0.000005;
+        //std::cout << SPAWN_INTERVAL << std::endl;
+	}
+	
 }

@@ -13,7 +13,7 @@ public:
 	void reset();
 
 private:
-	const float SPEED_MULTIPLIER = 100.0;
+	float SPEED_MULTIPLIER = 100.0;
 	EnemyBehaviour::EnemyMovementType movementType = Forward;
 	float ticks = 0.0f;
 	float delay = 0.0f;

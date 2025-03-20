@@ -9,5 +9,5 @@ public:
     void perform() override;
 
 private:
-    const float SPEED_MULTIPLIER = 100.0f;
+    float SPEED_MULTIPLIER = 25.0f;
 };

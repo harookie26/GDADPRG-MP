@@ -11,6 +11,6 @@ public:
 
 private:
 	GameObjectPool* enemyPool;
-	const float SPAWN_INTERVAL = 2.0f;
+	float SPAWN_INTERVAL = 2.0f;
 	float ticks = 0.0f;
 };

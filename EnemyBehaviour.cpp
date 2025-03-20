@@ -24,12 +24,15 @@ void EnemyBehaviour::perform()
 {
     this->ticks += this->deltaTime.asSeconds();
     sf::Transformable* transformable = this->getOwner()->getTransformable();
-
-    if (this->ticks > this->forwardDuration && this->movementType != Side)
+    
+	//increment speed multiplier adjust as necessary
+    SPEED_MULTIPLIER += 1.0f;
+    
+    /*if (this->ticks > this->forwardDuration && this->movementType != Side)
     {
-        int counter = (this->movementType + 1) % EnemyMovementType::Side + 1;
+        int counter = (this->movementType + 1) % EnemyMovementType::Forward+ 1;
         this->movementType = (EnemyMovementType)counter;
-    }
+    }*/
 
     if (this->movementType == Forward)
     {
@@ -41,7 +44,7 @@ void EnemyBehaviour::perform()
     }
     else if (this->movementType == Side)
     {
-        if (transformable->getPosition().x > Game::WINDOW_WIDTH / 2)
+        /*if (transformable->getPosition().x > Game::WINDOW_WIDTH / 2)
         {
             transformable->move(this->deltaTime.asSeconds() * SPEED_MULTIPLIER * 1.5, 0);
         }
@@ -53,8 +56,12 @@ void EnemyBehaviour::perform()
         if (transformable->getPosition().x > Game::WINDOW_WIDTH + 20 || transformable->getPosition().x < -20)
         {
             ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG)->releasePoolable((AbstractPoolable*)this->getOwner());
-        }
+        }*/
+        transformable->move(0, this->deltaTime.asSeconds() * SPEED_MULTIPLIER);
     }
+
+	
+	//std::cout << SPEED_MULTIPLIER << std::endl;
 }
 
 /**

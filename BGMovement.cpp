@@ -25,6 +25,7 @@ void BGMovement::perform()
 
     sf::Vector2f offset(0.0f, 0.0f);
     offset.y += SPEED_MULTIPLIER;
+	SPEED_MULTIPLIER += 0.01f;
 
     sprite->move(offset * this->deltaTime.asSeconds());
 
