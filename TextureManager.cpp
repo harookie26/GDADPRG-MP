@@ -35,7 +35,7 @@ void TextureManager::loadAll()
 	loadTexture("btn_normal", "Media/Texture/b_4.png");
 	loadTexture("btn_pressed", "Media/Texture/b_5.png");
 	loadTexture("bar", "Media/Texture/bar_1.png");
-	loadTexture("bullet", "Media/Texture/Bullet.png");
+	loadTexture("bullet", "Media/Textures/bullet.png");
 
 	sf::Texture* bgText;
 	bgText = getTexture("desert_bg");

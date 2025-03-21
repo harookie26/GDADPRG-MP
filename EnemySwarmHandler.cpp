@@ -55,11 +55,11 @@ void EnemySwarmHandler::perform()
         int randomChoice = rand() % 10; // Generate a number between 0 and 9
         AbstractPoolable* enemy = nullptr;
 
-        if (randomChoice < 7 && this->enemyPool->hasObjectAvailable(1)) // 70% chance to spawn EnemyAirplane
+        if (randomChoice < 8 && this->enemyPool->hasObjectAvailable(1)) // 80% chance to spawn EnemyAirplane
         {
-            enemy = this->enemyPool->requestPoolable((1)[0]);
+            enemy = this->enemyPool->requestPoolableBatch(1)[0];
         }
-        else if (randomChoice >= 7 && this->enemyTorpedoPool->hasObjectAvailable(1)) // 30% chance to spawn EnemyTorpedo
+        else if (randomChoice >= 8 && this->enemyTorpedoPool->hasObjectAvailable(1)) // 20% chance to spawn EnemyTorpedo
         {
             enemy = this->enemyTorpedoPool->requestPoolableBatch(1)[0];
         }

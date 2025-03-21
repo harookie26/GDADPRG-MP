@@ -107,13 +107,8 @@ void Game::processEvents()
 		case sf::Event::Closed:
 			mWindow.close();
 			break;
-		case sf::Event::KeyReleased:
-			if (event.key.code == sf::Keyboard::Space)
-			{
-				GameObjectManager::getInstance()->addObject(new EnemyAirplane("EnemyAirplane"));
-			}
-
-			break;
+		/*case sf::Event::KeyReleased:
+			break;*/
 		}
 		GameObjectManager::getInstance()->processInput(event);
 	}
