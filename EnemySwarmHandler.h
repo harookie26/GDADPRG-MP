@@ -10,6 +10,10 @@ public:
     void perform() override;
 
 private:
+	GameObjectPool* enemyPool;
+	const float SPAWN_INTERVAL = 2.0f;
+	float ticks = 0.0f;
+};
     void updateSpawnInterval(float deltaTime);
 
     GameObjectPool* enemyPool;
