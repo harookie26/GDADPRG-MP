@@ -29,6 +29,7 @@ void TextureManager::loadAll()
 	loadTexture("raptor", "Media/Textures/scout.png");
 	loadTexture("desert_bg", "Media/Textures/bg1.png");
 	loadTexture("avenger", "Media/Textures/scout.png");
+	loadTexture("enemy_torpedo", "Media/Textures/torpedo.png");
 	loadTexture("title_bg", "Media/Texture/TitleScreenBG.png");
 	loadTexture("bg_box", "Media/Texture/f.png");
 	loadTexture("btn_normal", "Media/Texture/b_4.png");

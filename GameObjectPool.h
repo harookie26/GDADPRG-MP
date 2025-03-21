@@ -18,12 +18,14 @@ public:
 
 	std::string getTag();
 
+	std::vector<AbstractPoolable*> availableObjects;
+
 private:
 	std::string tag;
 	AbstractPoolable* objectCopy = NULL;
 	AGameObject* parent = NULL;
 	int maxPoolSize = 20;
-	std::vector<AbstractPoolable*> availableObjects;
+	
 	std::vector<AbstractPoolable*> usedObjects;
 
 	void setEnabled(AbstractPoolable* poolableObject, bool flag);
