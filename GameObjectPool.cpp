@@ -155,6 +155,11 @@ void GameObjectPool::releasePoolable(AbstractPoolable* poolableObject)
         this->usedObjects.erase(it);
         this->availableObjects.push_back(poolableObject);
         this->setEnabled(poolableObject, false);
+        std::cout << "Released " << poolableObject->getName() << " back to pool." << std::endl;
+    }
+    else
+    {
+        std::cout << "Attempted to release an object not in use: " << poolableObject->getName() << std::endl;
     }
 }
 

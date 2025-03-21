@@ -19,6 +19,7 @@
 #include "QuitButton.h"
 #include "ObjectPoolHolder.h"
 #include "SceneManager.h"
+#include "SpeedManager.h"
 
 /**
  * @brief Construct a new Game:: Game object
@@ -130,6 +131,8 @@ void Game::handleKeyPress(sf::Keyboard::Key key)
  */
 void Game::update(sf::Time deltaTime)
 {
+	SpeedManager::getInstance()->update(deltaTime.asSeconds());
+
 	if (SceneManager::getInstance()->getActiveSceneName() != SceneManager::MAIN_MENU_SCENE_NAME)
     {
         if (!ApplicationManager::getInstance()->isPaused())
