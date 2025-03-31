@@ -48,7 +48,7 @@ void EnemyTorpedo::initialize()
     this->attachComponent(renderer);
 
     EnemyBehaviour* behaviour = new EnemyBehaviour("EnemyBehaviour");
-    behaviour->setSpeedMultiplier(6.0f);
+    behaviour->setSpeedMultiplier(4.0f);
     this->attachComponent(behaviour);
     behaviour->configure(1.0f);
 

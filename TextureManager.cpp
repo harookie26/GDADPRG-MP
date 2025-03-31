@@ -36,6 +36,7 @@ void TextureManager::loadAll()
 	loadTexture("btn_pressed", "Media/Texture/b_5.png");
 	loadTexture("bar", "Media/Texture/bar_1.png");
 	loadTexture("bullet", "Media/Textures/bullet.png");
+	loadTexture("heart", "Media/Textures/hearts.png");
 
 	sf::Texture* bgText;
 	bgText = getTexture("desert_bg");
@@ -86,4 +87,23 @@ void TextureManager::scaleTexture(std::string key, float scaleX, float scaleY)
 		sf::Sprite sprite(*texture);
 		sprite.setScale(scaleX, scaleY);
 	}
+}
+
+/**
+ * @brief Get a sprite using a specific sub-rectangle of a texture
+ *
+ * @param key The texture key
+ * @param rect The region to extract (sf::IntRect)
+ * @return sf::Sprite The sprite created from the given texture and region
+ */
+sf::Sprite TextureManager::getSprite(const std::string& key, sf::IntRect rect)
+{
+	sf::Texture* texture = getTexture(key);
+	if (texture)
+	{
+		sf::Sprite sprite(*texture, rect);
+		return sprite; // Optimized return by value (RVO)
+	}
+	std::cerr << "Failed to create sprite for: " << key << std::endl;
+	return sf::Sprite(); // Return an empty sprite if texture is missing
 }

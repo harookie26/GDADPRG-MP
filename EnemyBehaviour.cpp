@@ -28,6 +28,15 @@ void EnemyBehaviour::perform()
     {
         transformable->move(0, this->deltaTime.asSeconds() * SPEED_MULTIPLIER * speedMultiplier * globalSpeedMultiplier);
     }
+
+	const float MARGIN = 50.0f; // Define the margin value
+    sf::Vector2f position = transformable->getPosition();
+    if (position.x < MARGIN)
+        position.x = MARGIN;
+    if (position.x > Game::WINDOW_WIDTH - MARGIN)
+        position.x = Game::WINDOW_WIDTH - MARGIN;
+
+    transformable->setPosition(position);
 }
 
 void EnemyBehaviour::configure(float delay)

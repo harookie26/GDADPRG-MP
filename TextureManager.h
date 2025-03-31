@@ -13,6 +13,7 @@ public:
 	sf::Texture* getTexture(std::string);
 
 	void scaleTexture(std::string key, float scaleX, float scaleY);
+	sf::Sprite getSprite(const std::string& key, sf::IntRect rect);
 
 private:
 	TextureManager() {};
