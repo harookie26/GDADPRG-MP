@@ -45,10 +45,10 @@ void EnemyAirplane::initialize()
     renderer->assignDrawable(sprite);
     this->attachComponent(renderer);
 
-    /*EnemyBehaviour* behaviour = new EnemyBehaviour("EnemyBehaviour");
+    EnemyBehaviour* behaviour = new EnemyBehaviour("EnemyBehaviour");
     behaviour->setSpeedMultiplier(1.0f);
     this->attachComponent(behaviour);
-    behaviour->configure(1.0f);*/
+    behaviour->configure(1.0f);
 
     this->collider = new Collider("EnemyCollider");
 
@@ -56,7 +56,7 @@ void EnemyAirplane::initialize()
     sf::FloatRect globalBounds = sprite->getGlobalBounds();
 
     // Scale the bounds (e.g., make it 50% smaller)
-    float scaleFactor = 0.1f; // Change this value to make the bounds smaller or larger
+    float scaleFactor = 0.3f; // Change this value to make the bounds smaller or larger
     sf::FloatRect scaledBounds(
         globalBounds.left,
         globalBounds.top,
@@ -86,13 +86,13 @@ void EnemyAirplane::onRelease()
  */
 void EnemyAirplane::onActivate()
 {
-    //EnemyBehaviour* behaviour = (EnemyBehaviour*)this->findComponentByName("EnemyBehaviour");
-    //behaviour->reset();
+	EnemyBehaviour* behaviour = (EnemyBehaviour*)this->findComponentByName("EnemyBehaviour");
+    behaviour->reset();
 
 	PhysicsManager::getInstance()->trackObject(this->collider);
 
     this->setPosition(Game::WINDOW_WIDTH / 2, 0);
-	this->getTransformable()->move(rand() % SPAWN_RANGE - rand() % SPAWN_RANGE, 50);
+	this->getTransformable()->move(rand() % SPAWN_RANGE - rand() % SPAWN_RANGE, 0);
 
 }
 
@@ -113,7 +113,6 @@ void EnemyAirplane::onCollisionEnter(AGameObject* gameObject)
 	{
 		std::cout << "EnemyPlane collided with: " << gameObject->getName() << std::endl;
         return;
-
 		GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
         enemyPool->releasePoolable((AbstractPoolable*)this);
 	}

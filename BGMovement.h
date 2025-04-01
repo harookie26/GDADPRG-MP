@@ -10,4 +10,5 @@ public:
 
 private:
     const float SPEED_MULTIPLIER = 100.0f;
+	float speedFactor = 1.0f;
 };

@@ -41,11 +41,11 @@ void GameScreen::initialize()
     planeObject->attachChild(support2);
     support2->setPosition(-50, 100);*/
 
-    srand(time(nullptr));
+    /*srand(time(nullptr));
     EmptyGameObject* enemiesManager = new EmptyGameObject("EnemiesManager");
     EnemySwarmHandler* swarmHandler = new EnemySwarmHandler(200, "SwarmHandler", enemiesManager);
     enemiesManager->attachComponent(swarmHandler);
-    GameObjectManager::getInstance()->addObject(enemiesManager);
+    GameObjectManager::getInstance()->addObject(enemiesManager);*/
 
     GameObjectPool* projectilePool = new GameObjectPool(ObjectPoolHolder::PROJECTILE_POOL_TAG, new ProjectileObject("projectile"), 10, nullptr);
     projectilePool->initialize();

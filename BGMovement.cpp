@@ -8,7 +8,7 @@
  * @param name The name of the component
  */
 BGMovement::BGMovement(std::string name)
-    : AbstractComponent(name, AbstractComponent::ComponentType::Script)
+    : AbstractComponent(name, AbstractComponent::ComponentType::Script), speedFactor(1.0f)
 {
 }
 
@@ -24,7 +24,7 @@ void BGMovement::perform()
     sf::Sprite* sprite = bgObject->getSprite();
 
     sf::Vector2f offset(0.0f, 0.0f);
-    offset.y += SPEED_MULTIPLIER;
+    offset.y += SPEED_MULTIPLIER * speedFactor;
 
     sprite->move(offset * this->deltaTime.asSeconds());
 
@@ -33,4 +33,7 @@ void BGMovement::perform()
     {
         sprite->setPosition(0, -Game::WINDOW_HEIGHT * 7);
     }
+
+    // Increment the speed factor over time
+    speedFactor += 0.01f * this->deltaTime.asSeconds();
 }
