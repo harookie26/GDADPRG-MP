@@ -12,6 +12,6 @@ public:
 private:
 	GameObjectPool* projectilePool;
 	const float SPEED_MULTIPLIER = 300.0f;
-	const float BULLET_SPAWN_INTERVAL = 0.5f;
+	const float BULLET_SPAWN_INTERVAL = 2.0f;
 	float ticks = 0.0f;
 };

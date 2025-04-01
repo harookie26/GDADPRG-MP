@@ -60,10 +60,12 @@ void ProjectileObject::onCollisionEnter(AGameObject* gameObject)
 {
 	if (gameObject->getName().find("enemy") != std::string::npos && !this->hasHit)
 	{
+		
 		this->hasHit = true;
 		GameObjectPool* projectilePool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::PROJECTILE_POOL_TAG);
 		projectilePool->releasePoolable((AbstractPoolable*)this);
-		std::cout << "HIT" << std::endl;
+
+		//std::cout << "HIT" << std::endl;
 	}
 }
 

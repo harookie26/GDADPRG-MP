@@ -35,7 +35,7 @@ void PhysicsManager::perform()
 			if (this->trackedObjects[i]->getOwner()->isEnabled() &&
 				this->trackedObjects[j]->getOwner()->isEnabled())
 			{
-				if (this->trackedObjects[i]->willCollide(this->trackedObjects[i]))
+				if (this->trackedObjects[i]->willCollide(this->trackedObjects[j]))
 				{
 					if (!this->trackedObjects[i]->hasCollisionWith(this->trackedObjects[j]))
 					{
