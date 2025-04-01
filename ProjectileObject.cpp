@@ -26,7 +26,7 @@ void ProjectileObject::initialize()
 	this->projectileMovement = new ProjectileMovement("projectile_movement");
 	this->attachComponent(this->projectileMovement);
 
-	this->collider = new Collider("EnemyCollider");
+	this->collider = new Collider("ProjectileCollider");
 	this->collider->setLocalBounds(sprite->getGlobalBounds());
 	this->collider->setCollisionListener(this);
 	this->attachComponent(this->collider);

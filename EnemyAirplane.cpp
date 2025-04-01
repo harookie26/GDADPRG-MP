@@ -74,10 +74,11 @@ void EnemyAirplane::onActivate()
     EnemyBehaviour* behaviour = (EnemyBehaviour*)this->findComponentByName("EnemyBehaviour");
     behaviour->reset();
 
-	//PhysicsManager::getInstance()->trackObject(this->collider);
+	PhysicsManager::getInstance()->trackObject(this->collider);
 
-    this->setPosition(Game::WINDOW_WIDTH / 2, -30);
+    this->setPosition(Game::WINDOW_WIDTH / 2, 0);
     this->getTransformable()->move(rand() % SPAWN_RANGE - rand() % SPAWN_RANGE, 0);
+
 }
 
 /**
@@ -95,7 +96,7 @@ void EnemyAirplane::onCollisionEnter(AGameObject* gameObject)
 {
 	if (gameObject->getName().find("projectile") != std::string::npos)
 	{
-		std::cout << "Collided with: " << gameObject->getName() << std::endl;
+		std::cout << "EnemyPlane collided with: " << gameObject->getName() << std::endl;
 		GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
         enemyPool->releasePoolable((AbstractPoolable*)this);
 	}

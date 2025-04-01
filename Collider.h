@@ -1,4 +1,7 @@
 #pragma once
+#include <unordered_map>
+#include <unordered_set>
+
 #include "AbstractComponent.h"
 #include "CollisionListener.h"
 #include "AGameObject.h"
@@ -10,12 +13,10 @@ public:
 	
 	void setCollisionListener(CollisionListener* listener);
 
-	void setChecked(bool flag);
-	bool isChecked();
-
 	bool willCollide(Collider* other);
-	bool alreadyCollided();
-	void setAlreadyCollided(bool flag);
+	bool hasCollisionWith(Collider* collider);
+	void addCollision(Collider* collider);
+	void removeCollision(Collider* collider);
 
 	sf::FloatRect getGlobalBounds();
 	void setLocalBounds(sf::FloatRect bounds);
@@ -23,9 +24,11 @@ public:
 	void collisionExit(AGameObject* gameObject);
 
 	void perform();
+	void clearCollisions();
 
 private:
-	bool collided = false;
+	std::unordered_set<Collider*> collisions;
+
 	bool checked = false;
 	sf::FloatRect localBounds;
 	CollisionListener* listener;
