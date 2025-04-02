@@ -30,7 +30,7 @@ void TextureManager::loadAll()
 	loadTexture("desert_bg", "Media/Textures/bg1.png");
 	loadTexture("avenger", "Media/Textures/scout.png");
 	loadTexture("enemy_torpedo", "Media/Textures/torpedo.png");
-	loadTexture("title_bg", "Media/Texture/TitleScreenBG.png");
+	loadTexture("title_bg", "Media/Textures/title_menuBG.png");
 	loadTexture("bg_box", "Media/Texture/f.png");
 	loadTexture("btn_normal", "Media/Texture/b_4.png");
 	loadTexture("btn_pressed", "Media/Texture/b_5.png");
