@@ -14,25 +14,39 @@ ProjectileObject::ProjectileObject(std::string name) : AbstractPoolable(name), C
 
 void ProjectileObject::initialize()
 {
-	this->sprite = new sf::Sprite();
-	sprite->setTexture(*TextureManager::getInstance()->getTexture("bullet"));
-	sf::Vector2u textureSize = sprite->getTexture()->getSize();
-	sprite->setOrigin(textureSize.x / 2, textureSize.y / 2);
+    this->sprite = new sf::Sprite();
+    sprite->setTexture(*TextureManager::getInstance()->getTexture("bullet"));
+    sf::Vector2u textureSize = sprite->getTexture()->getSize();
+    sprite->setOrigin(textureSize.x / 2, textureSize.y / 2);
 
-	Renderer* renderer = new Renderer("EnemySprite");
-	renderer->assignDrawable(sprite);
-	this->attachComponent(renderer);
+    Renderer* renderer = new Renderer("EnemySprite");
+    renderer->assignDrawable(sprite);
+    this->attachComponent(renderer);
 
-	this->projectileMovement = new ProjectileMovement("projectile_movement");
-	this->attachComponent(this->projectileMovement);
+    this->projectileMovement = new ProjectileMovement("projectile_movement");
+    this->attachComponent(this->projectileMovement);
 
-	this->collider = new Collider("ProjectileCollider");
-	this->collider->setLocalBounds(sprite->getGlobalBounds());
-	this->collider->setCollisionListener(this);
-	this->attachComponent(this->collider);
+    this->collider = new Collider("ProjectileCollider");
+    // Retrieve the global bounds of the sprite
+    sf::FloatRect globalBounds = sprite->getGlobalBounds();
 
-	PhysicsManager::initialize("PhysicsManager", this);
+    // Scale the bounds to be slightly smaller
+    float scaleFactor = 0.3f; // Adjust this value as needed
+    sf::FloatRect scaledBounds(
+        globalBounds.left + (globalBounds.width * (1 - scaleFactor) / 2),
+        globalBounds.top + (globalBounds.height * (1 - scaleFactor) / 2),
+        globalBounds.width * scaleFactor,
+        globalBounds.height * scaleFactor
+    );
+
+    // Set the scaled bounds to the collider
+    this->collider->setLocalBounds(scaledBounds);
+    this->collider->setCollisionListener(this);
+    this->attachComponent(this->collider);
+
+    PhysicsManager::initialize("PhysicsManager", this);
 }
+
 
 void ProjectileObject::onRelease()
 {
@@ -60,7 +74,6 @@ void ProjectileObject::onCollisionEnter(AGameObject* gameObject)
 {
 	if (gameObject->getName().find("enemy") != std::string::npos && !this->hasHit)
 	{
-		return;
 		this->hasHit = true;
 		GameObjectPool* projectilePool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::PROJECTILE_POOL_TAG);
 		projectilePool->releasePoolable((AbstractPoolable*)this);

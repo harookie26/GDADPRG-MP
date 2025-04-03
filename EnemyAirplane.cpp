@@ -55,11 +55,11 @@ void EnemyAirplane::initialize()
     // Retrieve the global bounds of the sprite
     sf::FloatRect globalBounds = sprite->getGlobalBounds();
 
-    // Scale the bounds (e.g., make it 50% smaller)
-    float scaleFactor = 0.3f; // Change this value to make the bounds smaller or larger
+    // Scale the bounds to be slightly smaller
+    float scaleFactor = 0.3f; // Adjust this value as needed
     sf::FloatRect scaledBounds(
-        globalBounds.left,
-        globalBounds.top,
+        globalBounds.left + (globalBounds.width * (1 - scaleFactor) / 2),
+        globalBounds.top + (globalBounds.height * (1 - scaleFactor) / 2),
         globalBounds.width * scaleFactor,
         globalBounds.height * scaleFactor
     );
@@ -68,6 +68,8 @@ void EnemyAirplane::initialize()
     this->collider->setLocalBounds(scaledBounds);
     this->collider->setCollisionListener(this);
     this->attachComponent(this->collider);
+
+
 }
 
 
@@ -112,7 +114,6 @@ void EnemyAirplane::onCollisionEnter(AGameObject* gameObject)
 	if (gameObject->getName().find("projectile") != std::string::npos)
 	{
 		std::cout << "EnemyPlane collided with: " << gameObject->getName() << std::endl;
-        return;
 		GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
         enemyPool->releasePoolable((AbstractPoolable*)this);
 	}
