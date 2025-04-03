@@ -37,6 +37,8 @@ void EnemyBehaviour::perform()
         position.x = Game::WINDOW_WIDTH - MARGIN;
 
     transformable->setPosition(position);
+
+    checkOutOfBounds();
 }
 
 void EnemyBehaviour::configure(float delay)
@@ -54,4 +56,14 @@ void EnemyBehaviour::reset()
 void EnemyBehaviour::setSpeedMultiplier(float multiplier)
 {
     this->speedMultiplier = multiplier;
+}
+
+void EnemyBehaviour::checkOutOfBounds()
+{
+    sf::Vector2f position = this->getOwner()->getTransformable()->getPosition();
+    if (position.y > Game::WINDOW_HEIGHT)
+    {
+        GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
+        enemyPool->releasePoolable((AbstractPoolable*)this->getOwner());
+    }
 }

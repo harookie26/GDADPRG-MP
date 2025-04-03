@@ -17,4 +17,6 @@ private:
     float delay = 0.0f;
     float forwardDuration = 0.0f;
     enum EnemyMovementType { Forward, SlowForward, Side } movementType = Forward;
+
+    void checkOutOfBounds();
 };
