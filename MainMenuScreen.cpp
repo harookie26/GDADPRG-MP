@@ -39,25 +39,25 @@ void MainMenuScreen::initialize()
 	UIButton* button1 = new UIButton("button_1", btnNormal, btnPressed);
 	this->attachChild(button1);
 	button1->setPosition(0, 0);
-	button1->getTransformable()->setScale(0.3f, 0.3f);
+	button1->getTransformable()->setScale(2.5f, 2.5f);
 	button1->setButtonListener(this);
 
 	UIText* button_1Text = new UIText("text_1");
 	button1->attachChild(button_1Text);
-	button_1Text->setPosition(0, - 20);
-	button_1Text->setSize(100);
+	button_1Text->setPosition(3, -5);
+	button_1Text->setSize(18);
 	button_1Text->setText("START");
 
 	UIButton* button2 = new UIButton("button_2", btnNormal, btnPressed);
 	this->attachChild(button2);
 	button2->setPosition(0, 200); //button2->setPosition(0, 50);
-	button2->getTransformable()->setScale(0.3f, 0.3f);
+	button2->getTransformable()->setScale(2.5f, 2.5f);
 	button2->setButtonListener(this);
 
 	UIText* button_2Text = new UIText("text_1");
 	button2->attachChild(button_2Text);
-	button_2Text->setPosition(0, -20); //button_2Text->setPosition(0, -20);
-	button_2Text->setSize(100);
+	button_2Text->setPosition(2, -6s); //button_2Text->setPosition(0, -20);
+	button_2Text->setSize(20);
 	button_2Text->setText("EXIT");
 }
 
