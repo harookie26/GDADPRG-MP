@@ -169,6 +169,7 @@
     <ClCompile Include="MainMenuScreen.cpp" />
     <ClCompile Include="MyClass.cpp" />
     <ClCompile Include="ObjectPoolHolder.cpp" />
+    <ClCompile Include="PauseWindow.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerInputController.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="MyClass.h" />
     <ClInclude Include="ObjectPoolHolder.h" />
+    <ClInclude Include="PauseWindow.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerInputController.h" />
     <ClInclude Include="PlayerMovement.h" />

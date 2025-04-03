@@ -18,6 +18,7 @@
 #include "SceneManager.h"
 #include "UIButton.h"
 #include "UIText.h"
+#include "PauseWindow.h"
 
 GameScreen::GameScreen(std::string name) : AGameObject(name), ButtonListener()
 {
@@ -53,6 +54,15 @@ void GameScreen::initialize()
 
     QuitButton* PauseMenu = new QuitButton("PauseMenu");
     GameObjectManager::getInstance()->addObject(PauseMenu);
+}
+
+void GameScreen::processInput(sf::Event event)
+{
+    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+    {
+        ApplicationManager::getInstance()->pauseApplication();
+        GameObjectManager::getInstance()->addObject(new PauseWindow("PauseWindow"));
+    }
 }
 
 void GameScreen::onButtonClick(UIButton* button)

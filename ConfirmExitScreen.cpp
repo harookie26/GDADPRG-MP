@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include "GameObjectManager.h"
 #include "ApplicationManager.h"
+#include "PauseWindow.h"
 #include "SceneManager.h"
 #include "UIButton.h"
 #include "UIText.h"
@@ -70,15 +71,17 @@ void ConfirmExitScreen::initialize()
 
 void ConfirmExitScreen::onButtonClick(UIButton* button)
 {
-    if (button->getName() == "yesButton")
+    std::string buttonName = button->getName();
+
+    if (buttonName == "yesButton")
     {
         GameObjectManager::getInstance()->deleteAllObjectsInScene();
         SceneManager::getInstance()->loadScene(SceneManager::MAIN_MENU_SCENE_NAME);
     }
-    else if (button->getName() == "noButton")
+    else if (buttonName == "noButton")
     {
-        ApplicationManager::getInstance()->resumeApplication();
         GameObjectManager::getInstance()->deleteObject(this);
+        GameObjectManager::getInstance()->addObject(new PauseWindow("PauseWindow"));
     }
 }
 

@@ -10,6 +10,8 @@ public:
 
 	void initialize();
 
+	void processInput(sf::Event event) override;
+
 	void onButtonClick(UIButton* button);
 	void onButtonReleased(UIButton* button);
 

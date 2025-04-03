@@ -32,11 +32,13 @@ void TextureManager::loadAll()
 	loadTexture("enemy_torpedo", "Media/Textures/torpedo.png");
 	loadTexture("title_bg", "Media/Textures/title_menuBG.png");
 	loadTexture("bg_box", "Media/Texture/f.png");
-	loadTexture("btn_normal", "Media/Texture/b_4.png");
-	loadTexture("btn_pressed", "Media/Texture/b_5.png");
+	loadTexture("btn_normal", "Media/Textures/Idle.png");
+	loadTexture("btn_pressed", "Media/Textures/Click.png");
 	loadTexture("bar", "Media/Texture/bar_1.png");
 	loadTexture("bullet", "Media/Textures/bullet.png");
 	loadTexture("heart", "Media/Textures/hearts.png");
+	loadTexture("pause_window", "Media/Textures/pause_window.png");
+
 
 	sf::Texture* bgText;
 	bgText = getTexture("desert_bg");
