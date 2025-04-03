@@ -38,7 +38,7 @@ void TextureManager::loadAll()
 	loadTexture("bullet", "Media/Textures/bullet.png");
 	loadTexture("heart", "Media/Textures/hearts.png");
 	loadTexture("pause_window", "Media/Textures/pause_window.png");
-
+	loadTexture("confirm_exit", "Media/Textures/confirm_exit.png");
 
 	sf::Texture* bgText;
 	bgText = getTexture("desert_bg");

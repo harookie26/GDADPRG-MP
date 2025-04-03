@@ -16,7 +16,7 @@ ConfirmExitScreen::ConfirmExitScreen(std::string name) : AGameObject(name), Butt
 void ConfirmExitScreen::initialize()
 {
     sf::Sprite* sprite = new sf::Sprite();
-    sprite->setTexture(*TextureManager::getInstance()->getTexture("bg_box"));
+    sprite->setTexture(*TextureManager::getInstance()->getTexture("confirm_exit"));
     sf::Vector2u textureSize = sprite->getTexture()->getSize();
     sprite->setOrigin(textureSize.x / 2, textureSize.y / 2);
     sprite->setScale(0.75f, 0.75f); // Adjust the scale factors as needed
@@ -46,26 +46,26 @@ void ConfirmExitScreen::initialize()
 
     UIButton* yesButton = new UIButton("yesButton", btnNormal, btnPressed);
     this->attachChild(yesButton);
-    yesButton->setPosition(-100, 100);
-    yesButton->getTransformable()->setScale(0.3f, 0.3f);
+    yesButton->setPosition(-100, 50);
+    yesButton->getTransformable()->setScale(1.5f, 1.5f);
     yesButton->setButtonListener(this);
 
     UIText* yesButtonText = new UIText("yesText");
     yesButton->attachChild(yesButtonText);
-    yesButtonText->setPosition(0, -20);
-    yesButtonText->setSize(100);
+    yesButtonText->setPosition(2, -5);
+    yesButtonText->setSize(30);
     yesButtonText->setText("YES");
 
     UIButton* noButton = new UIButton("noButton", btnNormal, btnPressed);
     this->attachChild(noButton);
-    noButton->setPosition(100, 100);
-    noButton->getTransformable()->setScale(0.3f, 0.3f);
+    noButton->setPosition(100, 50);
+    noButton->getTransformable()->setScale(1.5f, 1.5f);
     noButton->setButtonListener(this);
 
     UIText* noButtonText = new UIText("noText");
     noButton->attachChild(noButtonText);
-    noButtonText->setPosition(0, -20);
-    noButtonText->setSize(100);
+    noButtonText->setPosition(3, -6);
+    noButtonText->setSize(30);
     noButtonText->setText("NO");
 }
 

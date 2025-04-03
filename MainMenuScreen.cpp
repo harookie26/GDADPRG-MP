@@ -56,7 +56,7 @@ void MainMenuScreen::initialize()
 
 	UIText* button_2Text = new UIText("text_1");
 	button2->attachChild(button_2Text);
-	button_2Text->setPosition(2, -6s); //button_2Text->setPosition(0, -20);
+	button_2Text->setPosition(2, -6); //button_2Text->setPosition(0, -20);
 	button_2Text->setSize(20);
 	button_2Text->setText("EXIT");
 }

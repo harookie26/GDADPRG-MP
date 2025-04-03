@@ -52,8 +52,6 @@ void GameScreen::initialize()
     projectilePool->initialize();
     ObjectPoolHolder::getInstance()->registerObjectPool(projectilePool);
 
-    QuitButton* PauseMenu = new QuitButton("PauseMenu");
-    GameObjectManager::getInstance()->addObject(PauseMenu);
 }
 
 void GameScreen::processInput(sf::Event event)
