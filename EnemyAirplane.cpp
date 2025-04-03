@@ -60,7 +60,7 @@ void EnemyAirplane::initialize()
     sf::FloatRect scaledBounds(
         globalBounds.left + (globalBounds.width * (1 - scaleFactor) / 2),
         globalBounds.top + (globalBounds.height * (1 - scaleFactor) / 2),
-        globalBounds.width * scaleFactor,
+        globalBounds.width * (scaleFactor + 0.2f),
         globalBounds.height * scaleFactor
     );
 
@@ -113,7 +113,7 @@ void EnemyAirplane::onCollisionEnter(AGameObject* gameObject)
 {
 	if (gameObject->getName().find("projectile") != std::string::npos)
 	{
-		std::cout << "EnemyPlane collided with: " << gameObject->getName() << std::endl;
+		//std::cout << "EnemyPlane collided with: " << gameObject->getName() << std::endl;
 		GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
         enemyPool->releasePoolable((AbstractPoolable*)this);
 	}
