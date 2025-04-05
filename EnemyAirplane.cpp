@@ -8,7 +8,7 @@
 #include "GameObjectPool.h"
 #include "ObjectPoolHolder.h"
 #include "PhysicsManager.h"
-
+#include "SFXManager.h"
 /**
  * @brief Construct a new EnemyAirplane object
  *
@@ -70,6 +70,8 @@ void EnemyAirplane::initialize()
     this->collider->setLocalBounds(scaledBounds);
     this->collider->setCollisionListener(this);
     this->attachComponent(this->collider);
+
+	SFXManager::getInstance()->loadAll();
 }
 
 
@@ -112,6 +114,7 @@ void EnemyAirplane::onCollisionEnter(AGameObject* gameObject)
 {
 	if (gameObject->getName().find("projectile") != std::string::npos)
 	{
+        SFXManager::getInstance()->playSound("explosion");
 		//std::cout << "EnemyPlane collided with: " << gameObject->getName() << std::endl;
 		GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
         enemyPool->releasePoolable((AbstractPoolable*)this);
@@ -119,6 +122,7 @@ void EnemyAirplane::onCollisionEnter(AGameObject* gameObject)
 
 	if (gameObject->getName().find("PlaneObject") != std::string::npos)
 	{
+        SFXManager::getInstance()->playSound("explosion");
 		std::cout << "Enemy hit player" << std::endl;
         GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
         enemyPool->releasePoolable((AbstractPoolable*)this);

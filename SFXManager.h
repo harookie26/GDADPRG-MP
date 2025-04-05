@@ -3,6 +3,9 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include <unordered_map>
+#include <memory>
+#include <vector>
+
 
 class SFXManager
 {
@@ -18,5 +21,9 @@ private:
 
     static SFXManager* sharedInstance;
     std::unordered_map<std::string, std::string> soundMap;
+    //std::vector<sf::Sound> activeSounds; 
+    std::vector<std::unique_ptr<sf::Sound>> activeSounds;
+    std::unordered_map<std::string, sf::SoundBuffer> soundBuffers;
+    
 };
 

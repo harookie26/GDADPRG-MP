@@ -6,6 +6,7 @@
 #include <string>
 #include "ObjectPoolHolder.h"
 #include "Renderer.h"
+#include "SFXManager.h"
 #include <iostream>
 
 ProjectileObject::ProjectileObject(std::string name) : AbstractPoolable(name), CollisionListener()
@@ -61,7 +62,7 @@ void ProjectileObject::onActivate()
 	this->setPosition(position.x, position.y);
 
 	this->hasHit = false;
-
+	SFXManager::getInstance()->playSound("firing");
 	PhysicsManager::getInstance()->trackObject(this->collider);
 }
 

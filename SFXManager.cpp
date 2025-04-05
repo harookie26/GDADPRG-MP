@@ -24,10 +24,9 @@ SFXManager* SFXManager::getInstance()
  */
 void SFXManager::loadAll()
 {
-    loadSound("effect_1", "Media/Texture/EnemyGunfire.wav");
-    loadSound("effect_2", "Media/Texture/Explosion1.wav");
-    loadSound("effect_3", "Media/Texture/Explosion2.wav");
-    loadSound("effect_4", "Media/Texture/LaunchMissile.wav");
+    loadSound("explosion", "Media/Textures/explosion_sound.wav"); // source: https://creatorassets.com/a/8bit-explosion-sound-effects
+    loadSound("firing", "Media/Textures/projectile_sfx.wav"); // source: https://creatorassets.com/a/8-bit-powerup-sound-effects
+
 }
 
 /**
@@ -39,6 +38,11 @@ void SFXManager::loadAll()
 void SFXManager::loadSound(const std::string& key, const std::string& path)
 {
     soundMap[key] = path;
+    sf::SoundBuffer buffer;
+    if (buffer.loadFromFile(path))
+    {
+        soundBuffers[key] = buffer;
+    }
 }
 
 /**
@@ -64,27 +68,44 @@ std::string SFXManager::getFilePath(const std::string& key)
  */
 void SFXManager::playSound(const std::string& key)
 {
-    std::string path = getFilePath(key);
+    /*std::string path = getFilePath(key);
     if (path.empty())
     {
         std::cout << "Sound not found: " << key << std::endl;
         return;
-    }
+    }*/
 
-    sf::SoundBuffer buffer;
+    /*sf::SoundBuffer buffer;
     if (!buffer.loadFromFile(path))
     {
         std::cout << "Failed to load sound: " << path << std::endl;
         return;
-    }
+    }*/
 
-    sf::Sound sound;
+    /*sf::Sound sound;
     sound.setBuffer(buffer);
-    sound.play();
+    sound.play();*/
 
-    // Wait until the sound is finished playing
-    while (sound.getStatus() == sf::Sound::Playing)
+    auto bufferIt = soundBuffers.find(key);
+    if (bufferIt == soundBuffers.end())
     {
-        sf::sleep(sf::milliseconds(5));
+        std::cout << "Sound not found: " << key << std::endl;
+        return;
     }
+    //std::string activeSoundKey = key + std::to_string(activeSounds.size());  
+   
+    auto sound = std::make_unique<sf::Sound>();
+    sound->setBuffer(bufferIt->second);
+    sound->play();
+    
+    activeSounds.push_back(std::move(sound));
+
+    
+
+    /*activeSounds.erase(
+        std::remove_if(activeSounds.begin(), activeSounds.end(), [](const sf::Sound& s) {
+            return s.getStatus() == sf::Sound::Stopped;
+            }),
+        activeSounds.end()
+    );*/
 }
