@@ -1,4 +1,6 @@
 #include "EnemyAirplane.h"
+
+#include "AirplanePlayer.h"
 #include "TextureManager.h"
 #include "Game.h"
 #include "Renderer.h"
@@ -68,8 +70,6 @@ void EnemyAirplane::initialize()
     this->collider->setLocalBounds(scaledBounds);
     this->collider->setCollisionListener(this);
     this->attachComponent(this->collider);
-
-
 }
 
 
@@ -95,7 +95,6 @@ void EnemyAirplane::onActivate()
 
     this->setPosition(Game::WINDOW_WIDTH / 2, 0);
 	this->getTransformable()->move(rand() % SPAWN_RANGE - rand() % SPAWN_RANGE, 0);
-
 }
 
 /**
@@ -115,6 +114,13 @@ void EnemyAirplane::onCollisionEnter(AGameObject* gameObject)
 	{
 		//std::cout << "EnemyPlane collided with: " << gameObject->getName() << std::endl;
 		GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
+        enemyPool->releasePoolable((AbstractPoolable*)this);
+	}
+
+	if (gameObject->getName().find("PlaneObject") != std::string::npos)
+	{
+		std::cout << "Enemy hit player" << std::endl;
+        GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
         enemyPool->releasePoolable((AbstractPoolable*)this);
 	}
 }

@@ -34,6 +34,7 @@ void GameScreen::initialize()
     AirplanePlayer* planeObject = new AirplanePlayer("PlaneObject");
     GameObjectManager::getInstance()->addObject(planeObject);
 
+   
     /*AirplaneSupport* support1 = new AirplaneSupport("AirSupport_1", true);
     planeObject->attachChild(support1);
     support1->setPosition(50, 100);
@@ -51,6 +52,9 @@ void GameScreen::initialize()
     GameObjectPool* projectilePool = new GameObjectPool(ObjectPoolHolder::PROJECTILE_POOL_TAG, new ProjectileObject("projectile"), 10, nullptr);
     projectilePool->initialize();
     ObjectPoolHolder::getInstance()->registerObjectPool(projectilePool);
+
+    // Track the player collider with the PhysicsManager
+    PhysicsManager::getInstance()->trackObject(planeObject->collider);
 
 }
 

@@ -1,5 +1,6 @@
 #include "AirplanePlayer.h"
 #include "AirplaneSupport.h"
+#include "PhysicsManager.h"
 #include "PlayerInputController.h"
 #include "PlayerMovement.h"
 #include "Renderer.h"
@@ -9,7 +10,7 @@
  *
  * @param name The name of the airplane player
  */
-AirplanePlayer::AirplanePlayer(std::string name) : AGameObject(name)
+AirplanePlayer::AirplanePlayer(std::string name) : AGameObject(name), CollisionListener(), collider(nullptr)
 {
 }
 
@@ -38,6 +39,25 @@ void AirplanePlayer::initialize()
     Renderer* renderer = new Renderer("PlayerRenderer");
     renderer->assignDrawable(this->sprite);
     this->attachComponent(renderer);
+
+    this->collider = new Collider("PlayerCollider");
+
+    // Retrieve the global bounds of the sprite
+    sf::FloatRect globalBounds = sprite->getGlobalBounds();
+
+    // Scale the bounds to be slightly smaller
+    float scaleFactor = 0.3f; // Adjust this value as needed
+    sf::FloatRect scaledBounds(
+        globalBounds.left + (globalBounds.width * (1 - scaleFactor) / 2),
+        globalBounds.top + (globalBounds.height * (1 - scaleFactor) / 2),
+        globalBounds.width * (scaleFactor + 0.2f),
+        globalBounds.height * scaleFactor
+    );
+
+    // Set the scaled bounds to the collider
+    this->collider->setLocalBounds(scaledBounds);
+    this->collider->setCollisionListener(this);
+    this->attachComponent(this->collider);
 
     // Initialize heart sprites
     for (int i = 0; i < lives; ++i)
@@ -119,6 +139,13 @@ void AirplanePlayer::onCollisionEnter(AGameObject* gameObject)
 {
     if (gameObject->getName().find("enemy") != std::string::npos)
     {
+        std::cout << "Enemey hit" << std::endl;
         this->takeDamage();
     }
+}
+
+
+void AirplanePlayer::onCollisionExit(AGameObject* gameObject)
+{
+    std::cout << "Player " << this->name << " exited collision with " << gameObject->getName() << std::endl;
 }
