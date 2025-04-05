@@ -21,6 +21,7 @@ public:
     void takeDamage(); // Method to reduce lives
     void onCollisionEnter(AGameObject* gameObject) override;
     void onCollisionExit(AGameObject* gameObject) override;
+    int getLives();
 
     std::vector<sf::Sprite*> heartSprites; // Heart sprites
     Collider* collider;

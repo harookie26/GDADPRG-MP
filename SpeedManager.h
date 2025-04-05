@@ -6,6 +6,7 @@ public:
     static SpeedManager* getInstance();
     void update(float deltaTime);
     float getSpeedMultiplier() const;
+    void resetSpeed();
 
 private:
     SpeedManager();

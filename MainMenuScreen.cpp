@@ -12,6 +12,7 @@
 #include "SceneManager.h"
 #include "UIButton.h"
 #include "UIText.h"
+#include "SpeedManager.h"
 
 MainMenuScreen::MainMenuScreen(std::string name) : AGameObject(name), ButtonListener()
 {
@@ -70,6 +71,7 @@ void MainMenuScreen::onButtonClick(UIButton* button)
 		GameObjectManager::getInstance()->deleteAllObjectsInScene();
 		SceneManager::getInstance()->registerScene(new GameScene());
 		SceneManager::getInstance()->loadScene(SceneManager::GAME_SCENE_NAME);
+		SpeedManager::getInstance()->resetSpeed();
 	}
 	else if (button->getName() == "button_2")
 	{

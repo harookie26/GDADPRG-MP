@@ -14,6 +14,7 @@
 #include "EnemySwarmHandler.h"
 #include "FontManager.h"
 #include "GameScene.h"
+#include "GameOverScreen.h"
 #include "MainMenuScene.h"
 #include "MainMenuScreen.h"
 #include "QuitButton.h"
@@ -22,13 +23,16 @@
 #include "SpeedManager.h"
 #include "FontManager.h"
 
+
+
+
 /**
  * @brief Construct a new Game:: Game object
  *
  * Initializes the game window, player, font, and text objects.
  */
 Game::Game()
-	: mWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML Application"), mScore(0), mElapsedTime(sf::Time::Zero)
+	: mWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML Application"), mScore(0), mElapsedTime(sf::Time::Zero), mPlayer(nullptr)
 {
 	// Initialize ApplicationManager with the game window
 	ApplicationManager::initialize(&mWindow);
@@ -63,7 +67,6 @@ Game::Game()
 	/*// Create and add the main menu screen
 	MainMenuScreen* mainMenuScreen = new MainMenuScreen("MainMenuScreen");
 	GameObjectManager::getInstance()->addObject(mainMenuScreen);*/
-
 	SceneManager::getInstance()->registerScene(new MainMenuScene());
 	SceneManager::getInstance()->loadScene(SceneManager::MAIN_MENU_SCENE_NAME);
 
@@ -138,9 +141,51 @@ void Game::update(sf::Time deltaTime)
 			mElapsedTime += deltaTime;
 
 			mScore = static_cast<int>(mElapsedTime.asSeconds()) * 100;
+			mPlayer = dynamic_cast<AirplanePlayer*>(GameObjectManager::getInstance()->findObjectByName("PlaneObject"));
+			
+			if (mPlayer && mPlayer->getLives() <= 0) //  game over condition
+			{
+
+				GameObjectManager::getInstance()->deleteAllObjectsInScene();
+				ApplicationManager::getInstance()->pauseApplication();
+				transitionToGameOver();
+				mIsGameOver = false;
+
+			}
+			
         }
+		
+		
+		
     }
 }
+
+
+
+
+
+/**
+ * @brief Transition to the game over screen
+ *
+ * This function is called when the game is over to display the game over screen.
+ */
+void Game::transitionToGameOver()
+{
+		mIsGameOver = true;
+
+		// Create and add the game over screen
+		GameOverScreen* gameOverScreen = new GameOverScreen("gameOverScreen");
+		gameOverScreen->initialize();
+		gameOverScreen->setScore(mScore);
+		mElapsedTime = sf::Time::Zero; // Reset elapsed time for the next game
+		mScore = 0; // Reset score for the next game
+		GameObjectManager::getInstance()->addObject(gameOverScreen);
+	
+}
+
+
+
+
 
 /**
  * @brief Render the game objects
@@ -152,7 +197,8 @@ void Game::render()
 	mWindow.clear();
 	GameObjectManager::getInstance()->draw(&mWindow);
 	
-	if (SceneManager::getInstance()->getActiveSceneName() != SceneManager::MAIN_MENU_SCENE_NAME)
+
+	if (!mIsGameOver && SceneManager::getInstance()->getActiveSceneName() != SceneManager::MAIN_MENU_SCENE_NAME)
 	{
 		const sf::Font* font = FontManager::getInstance()->getFont("default");
 		sf::Text scoreText; 

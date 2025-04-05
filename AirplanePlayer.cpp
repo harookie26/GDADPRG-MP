@@ -149,3 +149,8 @@ void AirplanePlayer::onCollisionExit(AGameObject* gameObject)
 {
     std::cout << "Player " << this->name << " exited collision with " << gameObject->getName() << std::endl;
 }
+
+int AirplanePlayer::getLives() {
+	return lives;
+
+}
