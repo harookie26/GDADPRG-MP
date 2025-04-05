@@ -20,6 +20,7 @@
 #include "ObjectPoolHolder.h"
 #include "SceneManager.h"
 #include "SpeedManager.h"
+#include "FontManager.h"
 
 /**
  * @brief Construct a new Game:: Game object
@@ -27,7 +28,7 @@
  * Initializes the game window, player, font, and text objects.
  */
 Game::Game()
-	: mWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML Application")
+	: mWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML Application"), mScore(0), mElapsedTime(sf::Time::Zero)
 {
 	// Initialize ApplicationManager with the game window
 	ApplicationManager::initialize(&mWindow);
@@ -67,6 +68,7 @@ Game::Game()
 	SceneManager::getInstance()->loadScene(SceneManager::MAIN_MENU_SCENE_NAME);
 
 	mWindow.setFramerateLimit(60);
+
 }
 
 Game::~Game()
@@ -133,6 +135,9 @@ void Game::update(sf::Time deltaTime)
         if (!ApplicationManager::getInstance()->isPaused())
         {
             GameObjectManager::getInstance()->update(deltaTime);
+			mElapsedTime += deltaTime;
+
+			mScore = static_cast<int>(mElapsedTime.asSeconds()) * 100;
         }
     }
 }
@@ -146,5 +151,19 @@ void Game::render()
 {
 	mWindow.clear();
 	GameObjectManager::getInstance()->draw(&mWindow);
+	
+	if (SceneManager::getInstance()->getActiveSceneName() != SceneManager::MAIN_MENU_SCENE_NAME)
+	{
+		const sf::Font* font = FontManager::getInstance()->getFont("default");
+		sf::Text scoreText; 
+		scoreText.setFont(*font);
+		scoreText.setString("Score: " + std::to_string(mScore));
+		scoreText.setCharacterSize(24);
+		scoreText.setFillColor(sf::Color::White);
+		scoreText.setPosition(500, 10);
+		mWindow.draw(scoreText);
+	}
 	mWindow.display();
+
+
 }

@@ -23,6 +23,8 @@ private:
 	void handleKeyPress(sf::Keyboard::Key key);
 
 	sf::RenderWindow mWindow;
+	int mScore; //   keep track of the score
+	sf::Time mElapsedTime; //  elapsed time for scoring
 
 protected:
 	
