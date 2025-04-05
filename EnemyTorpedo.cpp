@@ -52,8 +52,22 @@ void EnemyTorpedo::initialize()
     this->attachComponent(behaviour);
     behaviour->configure(1.0f);
 
-    this->collider = new Collider("EnemyCollider");
-    this->collider->setLocalBounds(sprite->getGlobalBounds());
+    this->collider = new Collider("EnemyTorpedoCollider");
+
+    // Retrieve the global bounds of the sprite
+    sf::FloatRect globalBounds = sprite->getGlobalBounds();
+
+    // Scale the bounds to be slightly smaller
+    float scaleFactor = 0.2f; // Adjust this value as needed
+    sf::FloatRect scaledBounds(
+        globalBounds.left + (globalBounds.width * (1 - scaleFactor) / 2),
+        globalBounds.top + (globalBounds.height * (1 - scaleFactor) / 2),
+        globalBounds.width * (scaleFactor + 0.2f),
+        globalBounds.height * scaleFactor
+    );
+
+    // Set the scaled bounds to the collider
+    this->collider->setLocalBounds(scaledBounds);
     this->collider->setCollisionListener(this);
     this->attachComponent(this->collider);
 }
@@ -76,7 +90,7 @@ void EnemyTorpedo::onActivate()
     EnemyBehaviour* behaviour = (EnemyBehaviour*)this->findComponentByName("EnemyBehaviour");
     behaviour->reset();
 
-    //PhysicsManager::getInstance()->trackObject(this->collider);
+	PhysicsManager::getInstance()->trackObject(this->collider);
 
     this->setPosition(Game::WINDOW_WIDTH / 2, -30);
     this->getTransformable()->move(rand() % SPAWN_RANGE - rand() % SPAWN_RANGE, 0);
@@ -98,6 +112,13 @@ void EnemyTorpedo::onCollisionEnter(AGameObject* gameObject)
     if (gameObject->getName().find("projectile") != std::string::npos)
     {
         std::cout << "Collided with: " << gameObject->getName() << std::endl;
+        GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
+        enemyPool->releasePoolable((AbstractPoolable*)this);
+    }
+
+    if (gameObject->getName().find("PlaneObject") != std::string::npos)
+    {
+        std::cout << "Enemy hit player" << std::endl;
         GameObjectPool* enemyPool = ObjectPoolHolder::getInstance()->getPool(ObjectPoolHolder::ENEMY_POOL_TAG);
         enemyPool->releasePoolable((AbstractPoolable*)this);
     }
